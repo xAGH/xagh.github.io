@@ -1,22 +1,29 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
+import { Observable, map, timer } from 'rxjs';
 import { DatetimeFormats } from 'src/app/core/constants/datetime-formats.const';
 
 @Component({
   selector: 'app-timer',
-  template: '<span class="select-none">{{ now | date:format }}</span>',
+  template: '<span class="select-none">{{ timer | async | date:format}}</span>',
 })
 export class TimerComponent {
 
   @Input() format: DatetimeFormats;
-  now: number;
+  timer: Observable<number>;
 
   constructor() {
     // Default values
-    this.now = 0;
-    this.format = DatetimeFormats.FULL;
+    this.format = DatetimeFormats.MEDIUM_TIME;
 
-    setInterval(() => {
-      this.now = new Date().getTime();
-    }, 1)
+    // Setting timer
+    const NOW = Date.now();
+    this.timer = timer(0, 1000).pipe(
+      map((time: number) => this.calcNewTimestamp(NOW, time))
+    );
+  }
+
+  // Gte the new timestamp from the current timestamp and the elapsed secods.
+  calcNewTimestamp(initialTime: number, elapsedSeconds: number): number {
+    return initialTime + elapsedSeconds * 1000;
   }
 }
