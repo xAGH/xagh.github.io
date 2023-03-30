@@ -1,11 +1,15 @@
+// Modules
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+// Components
 import { AppComponent } from './app.component';
+import { TimerComponent } from './components/timer/timer.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TimerComponent
   ],
   imports: [
     BrowserModule
