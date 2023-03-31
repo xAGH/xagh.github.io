@@ -1,0 +1,26 @@
+.caret {
+  @apply relative flex flex-wrap overflow-ellipsis;
+}
+
+.caret::after {
+  content: "";
+  @apply bg-primary absolute left-input-text-length;
+}
+
+.caret-bar,
+.caret-block,
+.caret-underline {
+  @apply flex items-center;
+}
+
+.caret-underline::after {
+  @apply w-4 h-1 self-end;
+}
+
+.caret-block::after {
+  @apply w-2 h-4;
+}
+
+.caret-bar::after {
+  @apply w-1 h-4;
+}

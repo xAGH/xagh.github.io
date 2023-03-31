@@ -1,0 +1,12 @@
+<div
+  class="caret w-full"
+  #caret
+  [ngClass]="caretShapeClass"
+  >
+    <input
+    [formControl]="inputTextField"
+    type="text"
+    appAlwaysOnFocus
+    class="outline-none bg-secondary text-primary caret-transparent w-full"
+  />
+</div>
