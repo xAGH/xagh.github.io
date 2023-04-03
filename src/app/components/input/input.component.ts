@@ -10,16 +10,23 @@ import { CaretShapes } from 'src/app/core/constants/caret-shapes.const';
 })
 export class InputComponent implements AfterViewInit, OnDestroy{
 
-  /**
-   * Variable to determine the caret shape.
-   * It's decorated with Input for reactive compatibility.
-  */
-  private _caret: CaretShapes;
-
+  // Input field with reactive forms
   inputTextField: FormControl;
+
+  // Reference to the inputTextField length
+  caretGapLength: number;
+
+  // Suscription reference to inputTextField changes
   private onChangeSuscription$!: Subscription;
 
+  // Element reference to div element that works as care
   @ViewChild('caret') caretDivRef!: ElementRef<HTMLDivElement>
+
+  /**
+   * Variable to determine the caret shape.
+   * It's decorated with Input and have getter and setter for reactive compatibility.
+  */
+  private _caret: CaretShapes;
 
   @Input() set caretShape(value: CaretShapes) {
     this.caretShape = value;
@@ -31,15 +38,16 @@ export class InputComponent implements AfterViewInit, OnDestroy{
 
   constructor() {
     // Default values
-    this._caret = CaretShapes.BLOCK;
+    this._caret = CaretShapes.BAR;
     this.inputTextField = new FormControl('');
+    this.caretGapLength = this.inputTextField.value.length;
   }
 
   ngAfterViewInit(): void {
     this.onChangeSuscription$ = this.inputTextField.valueChanges.subscribe(
       {
         next: (value: string) => {
-          this.caretDivRef.nativeElement.style.setProperty('--input-length', `${(value.length)}ch`)
+          this.caretDivRef.nativeElement.style.setProperty('--input-length', `${value.length}ch`)
         },
       }
     )
@@ -53,4 +61,5 @@ export class InputComponent implements AfterViewInit, OnDestroy{
   get caretShapeClass(): string {
     return `caret-${this.caretShape}`;
   }
+
 }
