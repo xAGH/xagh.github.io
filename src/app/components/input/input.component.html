@@ -1,11 +1,13 @@
 <div
-  class="caret w-full"
+  class="w-full caret"
   #caret
   [ngClass]="caretShapeClass"
+  (keydown.arrowleft)="logg('left')"
+  (keydown.arrowright)="logg('')"
   >
     <input
     type="text"
-    class="outline-none bg-secondary text-primary caret-transparent w-full"
+    class="w-full outline-none bg-secondary text-primary caret-transparent"
     [formControl]="inputTextField"
     appAlwaysOnFocus
   />
