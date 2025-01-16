@@ -13,4 +13,5 @@ export default defineConfig({
       "@terminal": resolve(__dirname, "./src/apps/terminal"),
     },
   },
+  base: "/"
 });
